@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-resource.min.js"></script>
+
+    <script language="javascript">
+
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.command = "runner.py";
+            $scope.args = [
+                {arg: "hrr_low", v: .60},
+                {arg: "hrr_high", v: .80},
+                {arg: "filter_hrr", v: .39},
+                {arg: "peak_height", v: 10},
+                {arg: "peak_w_low", v: 40},
+                {arg: "peak_w_high", v: 450},
+                {arg: "minimum_data_points", v: 23},
+                {arg: "constraint_duration", v: 900},
+                {arg: "constraint_peaks", v: 5},
+                {arg: "mode", v: "patient_sort"},
+                {arg: "unzip", v: "true"},
+                {arg: "output", v: "web/output"},
+                {arg: "dpi", v: "100"},
+                {arg: "save_pdf", v: "false"},
+                {arg: "plot_hr_lines", v: "true"},
+                {arg: "plot_width_lines", v: "true"},
+                {arg: "plot_peak_points", v: "true"},
+                {arg: "labeling_mode", v: "true"},
+                {arg: "labeling_count", v: "121"}
+            ]
+        });
+
+    </script>
+</head>
+<body>
+<div ng-app="myApp">
+    <div ng-controller='myCtrl'>
+        <form action="/work/submit" method="post">
+            Command: <input type="text" name="command" value="{{command}}">
+            <div ng-repeat="x in args">
+                {{x.arg}}: <input type="text" ng-model="x.v" name="{{x.arg}}" value="{{x.v}}">
+            </div>
+
+            <hr>
+            Final Command:
+            <div>
+                <b>{{command}} <x ng-repeat="x in args">--{{x.arg}}={{x.v}} </x>
+                </b>
+            </div>
+            <hr>
+
+                <button ng-click="do_generate()">Generate (Do not spam this!)</button>
+            </form>
+        <a href="/server_load">Server Load (Check here to confirm that you are not double posting)</a>
+        <a href="/">Go to output</a><br>
+        <a href="/archive_current">Archive Current</a> | <a href="/clear_archive">Clear Archive (Do this frequently)</a> | <a href="/">Go to archive</a>
+
+
+    </div>
+</div>
+</body>

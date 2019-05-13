@@ -1,0 +1,11 @@
+git+https://github.com/rhenanbartels/hrv.git
+pandas
+numpy
+tinydb
+scipy
+XlsxWriter
+seaborn
+flask
+Flask-AutoIndex
+git+https://bitbucket.org/lucashnegri/peakutils.git
+oct2py
